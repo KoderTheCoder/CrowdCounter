@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@import Firebase;
 
 @interface MyEventsViewController : UIViewController
+
+@property (strong, nonatomic) IBOutlet UITableView *eventsTableView;
+@property (strong, nonatomic) NSMutableArray *eventList;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property FIRDatabaseHandle refHandle;
 
 @end

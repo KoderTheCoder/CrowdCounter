@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@import Firebase;
 
 @interface EventHomePageViewController : UIViewController
+@property (strong, nonatomic) NSString *eventID;
+@property (strong, nonatomic) IBOutlet UILabel *totalEnteredLbl;
+@property (strong, nonatomic) IBOutlet UILabel *crowdDensityLbl;
+@property (strong, nonatomic) IBOutlet UILabel *eventCodeLbl;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end

@@ -57,10 +57,10 @@
                                      completion:^(FIRAuthDataResult * _Nullable authResult,
                                                   NSError * _Nullable error) {
                                          if(error){
-                                             errorTxtBox.text = @"Something went wrong";
+                                             self->errorTxtBox.text = @"Something went wrong";
                                          }else{
-                                             [[[_ref child:@"users"] child:authResult.user.uid]
-                                              setValue:@{@"email": email.text, @"displayName":displayName.text}];
+                                             [[[self->_ref child:@"users"] child:authResult.user.uid]
+                                              setValue:@{@"email": self->email.text, @"displayName":self->displayName.text}];
                                              [self performSegueWithIdentifier:@"backToLogin" sender:self];
                                          }
                                      }];

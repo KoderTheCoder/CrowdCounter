@@ -7,8 +7,9 @@
 //
 
 #import "MyEventsViewController.h"
+@import Firebase;
 
-@interface MyEventsViewController ()
+@interface MyEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -17,11 +18,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _eventList = [[NSMutableArray alloc] init];
+    _ref = [[FIRDatabase database] reference];
+    
+    
+    
+    [self setupData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITablView DataSource Methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return _eventList.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyEventCell"];
+    cell.textLabel.text = [_eventList[indexPath.row] objectForKey:@"eventName"];
+    cell.detailTextLabel.text = [_eventList[indexPath.row] objectForKey:@"eventCode"];
+    return cell;
+}
+
+-(void)setupData{
+    _refHandle = [[_ref child:@"events"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *postDict = snapshot.value;
+        [self->_eventList removeAllObjects];
+        for(id key in postDict){
+            if([[[postDict objectForKey:key] objectForKey:@"owner"]isEqualToString:[[[FIRAuth auth] currentUser]uid]]){
+                [self->_eventList addObject:[postDict objectForKey:key]];
+            }
+        }
+        [self->_eventsTableView reloadData];
+    }];
 }
 
 /*

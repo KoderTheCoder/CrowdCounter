@@ -7,16 +7,18 @@
 //
 
 #import "AddDoorViewController.h"
-
+#import "DoorDetailViewController.h"
 @interface AddDoorViewController ()
 
 @end
 
 @implementation AddDoorViewController
+@synthesize doorName, doorArea;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _ref = [[FIRDatabase database] reference];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,4 +36,18 @@
 }
 */
 
+- (IBAction)createDoor:(id)sender {
+    _doorID = [_ref childByAutoId].key;
+    [[[[[self->_ref child:@"events"] child: _eventID] child:@"doors"]child: _doorID]
+     setValue:@{@"doorName": doorName.text, @"area":doorArea.text, @"attendantID":@"", @"entered":@0, @"exited":@0, @"pplPerMin":@0, @"crowdDensity":@0 }];
+    doorName.text = @"";
+    doorArea.text = @"";
+    [self performSegueWithIdentifier:@"ShowDoor" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    DoorDetailViewController *destinationVC = segue.destinationViewController;
+    destinationVC.eventID = _eventID;
+    destinationVC.doorID = _doorID;
+}
 @end

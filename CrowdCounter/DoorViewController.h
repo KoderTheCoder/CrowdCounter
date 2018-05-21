@@ -10,4 +10,6 @@
 
 @interface DoorViewController : UIViewController
 
+@property (strong, nonatomic) NSString *doorID;
+
 @end

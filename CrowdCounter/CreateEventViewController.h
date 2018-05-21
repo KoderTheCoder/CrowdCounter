@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@import Firebase;
 
 @interface CreateEventViewController : UIViewController
-
+@property (strong, nonatomic) IBOutlet UITextField *createEventTextField;
+- (IBAction)createEventButton:(id)sender;
+@property(strong, nonatomic) FIRAuthStateDidChangeListenerHandle handle;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property int eventCode;
+@property (strong, nonatomic) NSString *eventID;
 @end
