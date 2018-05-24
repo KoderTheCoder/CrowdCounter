@@ -14,29 +14,30 @@
 
 @implementation DoorDetailViewController
 
-@synthesize doorName, attendantName, enteredLbl, exitedLbl, pplPerMin, crowdDensity;
+@synthesize doorName, attendantName, enteredLbl, exitedLbl, pplPerMin, crowdDensity, registerToDoorButton, attendantID, loggedInDisplayName;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _ref = [[FIRDatabase database] reference];
     
+    [self getLoggedInUserDisplayName];
     
     //handler to listen for changes in the database
     _refHandle = [[[[[_ref child:@"events"] child:_eventID]child:@"doors"] child:_doorID] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *postDict = snapshot.value;
         self->doorName.text = [@"Door: " stringByAppendingString:[postDict objectForKey:@"doorName"]];
-        
+        self->attendantID = [postDict objectForKey:@"attendantID"];
         if([[postDict objectForKey:@"attendantID"]  isEqual: @""]){
             self->attendantName.text = @"Attendant: NA";
         }else{
-            [[[self->_ref child:@"users"] child:[postDict objectForKey:@"attendantID"]] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                
-                //get the users display name from attendantID
-                self->attendantName.text = snapshot.value[@"displayName"];
-            } withCancelBlock:^(NSError * _Nonnull error) {
-                NSLog(@"%@", error.localizedDescription);
-            }];
+            if([[[[FIRAuth auth]currentUser]uid] isEqualToString:[postDict objectForKey:@"attendantID"]]){
+                [self->registerToDoorButton setTitle:@"Door Counter Page" forState:UIControlStateNormal];
+            }else{
+                [self->registerToDoorButton setEnabled:NO];
+            }
+            
+            self->attendantName.text = [@"Attendant: " stringByAppendingString:[postDict objectForKey:@"attendantName"]];
         }
         if([postDict objectForKey:@"entered"] != nil){
             self->enteredLbl.text = [@"Entered: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"entered"]]];
@@ -79,6 +80,24 @@
 }
 */
 
+- (void) getLoggedInUserDisplayName{
+    [[_ref child:@"users"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        for(id key in snapshot.value){
+            if([key isEqualToString:[[[FIRAuth auth]currentUser]uid]]){
+                self->loggedInDisplayName = [[snapshot.value objectForKey:key]objectForKey:@"displayName"];
+            }
+        }
+    }];
+}
+
 - (IBAction)registerToDoor:(id)sender {
+    if([[[[FIRAuth auth]currentUser]uid] isEqualToString:attendantID]){
+        [self performSegueWithIdentifier:@"DoorCounter" sender:self];
+    }else{
+        [[[[[self->_ref child:@"events"] child:_eventID]child:@"doors"]child:_doorID]
+         updateChildValues:@{@"attendantID":[[[FIRAuth auth]currentUser]uid], @"attendantName":loggedInDisplayName}];
+        
+        [self performSegueWithIdentifier:@"DoorCounter" sender:self];
+    }
 }
 @end

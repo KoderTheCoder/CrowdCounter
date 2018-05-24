@@ -805,10 +805,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AO0-Jb-nBM">
-                                <rect key="frame" x="131" y="318" width="112" height="30"/>
+                                <rect key="frame" x="16" y="318" width="343" height="30"/>
                                 <state key="normal" title="Register to Door"/>
                                 <connections>
-                                    <action selector="registerToDoor:" destination="az7-Og-fMI" eventType="touchUpInside" id="Has-kM-Fcy"/>
+                                    <action selector="registerToDoor:" destination="az7-Og-fMI" eventType="touchUpInside" id="c5L-Fg-qFs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -832,14 +832,14 @@
                             <constraint firstItem="I7f-sS-IRO" firstAttribute="top" secondItem="Tf6-mT-dfN" secondAttribute="bottom" constant="8" id="ay6-Zb-aiz"/>
                             <constraint firstItem="Tf6-mT-dfN" firstAttribute="top" secondItem="alf-MF-F1q" secondAttribute="bottom" constant="8" id="bUz-EY-2eP"/>
                             <constraint firstItem="PUd-Rh-3sl" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="16" id="coy-Qn-hQH"/>
-                            <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="AO0-Jb-nBM" secondAttribute="trailing" constant="132" id="eOg-Zp-bkt"/>
+                            <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="AO0-Jb-nBM" secondAttribute="trailing" constant="16" id="eOg-Zp-bkt"/>
                             <constraint firstItem="PUd-Rh-3sl" firstAttribute="top" secondItem="9aA-bE-WfH" secondAttribute="bottom" constant="8" id="hVw-yc-0VW"/>
                             <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="I7f-sS-IRO" secondAttribute="trailing" constant="16" id="iZl-jx-tnb"/>
                             <constraint firstItem="Tf6-mT-dfN" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="16" id="ifj-ll-hc3"/>
                             <constraint firstItem="9aA-bE-WfH" firstAttribute="top" secondItem="5kY-kv-U6i" secondAttribute="bottom" constant="8" id="it6-nF-X5w"/>
                             <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="TSc-ii-o47" secondAttribute="trailing" constant="16" id="jAz-vl-jzs"/>
                             <constraint firstItem="TSc-ii-o47" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="16" id="lBL-ey-TWt"/>
-                            <constraint firstItem="AO0-Jb-nBM" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="131" id="ni0-EF-NNW"/>
+                            <constraint firstItem="AO0-Jb-nBM" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="16" id="ni0-EF-NNW"/>
                             <constraint firstItem="AO0-Jb-nBM" firstAttribute="top" secondItem="PUd-Rh-3sl" secondAttribute="bottom" constant="20" id="nkO-vg-KVB"/>
                             <constraint firstItem="alf-MF-F1q" firstAttribute="top" secondItem="E4P-g6-4Ec" secondAttribute="top" constant="39" id="qYH-aH-Pb1"/>
                             <constraint firstItem="smc-pz-SQr" firstAttribute="top" secondItem="AO0-Jb-nBM" secondAttribute="bottom" constant="15" id="rWZ-nQ-ELa"/>
@@ -856,6 +856,8 @@
                         <outlet property="enteredLbl" destination="TSc-ii-o47" id="UTk-x9-Gmu"/>
                         <outlet property="exitedLbl" destination="5kY-kv-U6i" id="1Zu-wh-gWS"/>
                         <outlet property="pplPerMin" destination="9aA-bE-WfH" id="VUI-LC-VZh"/>
+                        <outlet property="registerToDoorButton" destination="AO0-Jb-nBM" id="50u-8i-ROY"/>
+                        <segue destination="MmQ-yD-gm3" kind="show" identifier="DoorCounter" id="DGK-DT-LBS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63w-Xn-vfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -868,6 +870,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Nub-kt-EbZ"/>
+        <segue reference="DGK-DT-LBS"/>
         <segue reference="LlE-4a-H7U"/>
     </inferredMetricsTieBreakers>
 </document>

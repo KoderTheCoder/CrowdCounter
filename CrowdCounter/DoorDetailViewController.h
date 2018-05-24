@@ -13,7 +13,11 @@
 
 - (IBAction)registerToDoor:(id)sender;
 
+@property (strong, nonatomic) NSString *loggedInDisplayName;
+
+@property (strong, nonatomic) IBOutlet UIButton *registerToDoorButton;
 @property (strong, nonatomic) IBOutlet UILabel *doorName;
+@property (strong, nonatomic) NSString *attendantID;
 @property (strong, nonatomic) IBOutlet UILabel *attendantName;
 @property (strong, nonatomic) IBOutlet UILabel *enteredLbl;
 @property (strong, nonatomic) IBOutlet UILabel *exitedLbl;

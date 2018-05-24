@@ -39,7 +39,7 @@
 - (IBAction)createDoor:(id)sender {
     _doorID = [_ref childByAutoId].key;
     [[[[[self->_ref child:@"events"] child: _eventID] child:@"doors"]child: _doorID]
-     setValue:@{@"doorName": doorName.text, @"area":doorArea.text, @"attendantID":@"", @"entered":@0, @"exited":@0, @"pplPerMin":@0, @"crowdDensity":@0 }];
+     setValue:@{@"doorName": doorName.text, @"area":doorArea.text, @"attendantID":@"", @"attendantName":@"", @"entered":@0, @"exited":@0, @"pplPerMin":@0, @"crowdDensity":@0 }];
     doorName.text = @"";
     doorArea.text = @"";
     [self performSegueWithIdentifier:@"ShowDoor" sender:self];
