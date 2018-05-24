@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@import Firebase;
 
 @interface JoinEventViewController : UIViewController
+- (IBAction)joinButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UITextField *eventCodetxtField;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) NSString *eventIDforSegue;
 
 @end

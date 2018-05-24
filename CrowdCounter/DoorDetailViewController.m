@@ -23,7 +23,7 @@
     
     
     //handler to listen for changes in the database
-    _refHandle = [[[[_ref child:@"events"] child:_eventID] child:_doorID] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    _refHandle = [[[[[_ref child:@"events"] child:_eventID]child:@"doors"] child:_doorID] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *postDict = snapshot.value;
         self->doorName.text = [@"Door: " stringByAppendingString:[postDict objectForKey:@"doorName"]];
         
@@ -39,16 +39,16 @@
             }];
         }
         if([postDict objectForKey:@"entered"] != nil){
-            self->enteredLbl.text = [@"Entered: " stringByAppendingString:[postDict objectForKey:@"entered"]];
+            self->enteredLbl.text = [@"Entered: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"entered"]]];
         }
         if([postDict objectForKey:@"exited"] != nil){
-            self->exitedLbl.text = [@"Exited: " stringByAppendingString:[postDict objectForKey:@"exited"]];
+            self->exitedLbl.text = [@"Exited: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"exited"]]];
         }
         if([postDict objectForKey:@"pplPerMin"] != nil){
-            self->pplPerMin.text = [@"Peopl/Min: " stringByAppendingString:[postDict objectForKey:@"pplPerMin"]];
+            self->pplPerMin.text = [@"Peopl/Min: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"pplPerMin"]]];
         }
         if([postDict objectForKey:@"crowdDensity"] != nil){
-            self->crowdDensity.text = [@"Crowd Density: " stringByAppendingString:[postDict objectForKey:@"crowdDensity"]];
+            self->crowdDensity.text = [@"Crowd Density: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"crowdDensity"]]];
         }
     }];
     
@@ -79,4 +79,6 @@
 }
 */
 
+- (IBAction)registerToDoor:(id)sender {
+}
 @end

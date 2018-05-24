@@ -7,6 +7,7 @@
 //
 
 #import "MyEventsViewController.h"
+#import "EventHomePageViewController.h"
 @import Firebase;
 
 @interface MyEventsViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -15,10 +16,13 @@
 
 @implementation MyEventsViewController
 
+@synthesize selectedEventID;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _eventList = [[NSMutableArray alloc] init];
+    _eventIDList = [[NSMutableArray alloc] init];
     _ref = [[FIRDatabase database] reference];
     
     
@@ -44,13 +48,36 @@
     return cell;
 }
 
+- (NSIndexPath *) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    selectedEventID = _eventIDList[indexPath.row];
+    [self performSegueWithIdentifier:@"ShowEvent" sender:self];
+    return indexPath;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    EventHomePageViewController *destinationVC = segue.destinationViewController;
+    destinationVC.eventID = selectedEventID;
+}
+
 -(void)setupData{
     _refHandle = [[_ref child:@"events"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *postDict = snapshot.value;
         [self->_eventList removeAllObjects];
+        [self->_eventIDList removeAllObjects];
+        
         for(id key in postDict){
             if([[[postDict objectForKey:key] objectForKey:@"owner"]isEqualToString:[[[FIRAuth auth] currentUser]uid]]){
                 [self->_eventList addObject:[postDict objectForKey:key]];
+                [self->_eventIDList addObject:key];
+            }else{
+                for(id membersKey in [[postDict objectForKey:key]objectForKey:@"members"]){
+                    if([membersKey isEqualToString:[[[FIRAuth auth] currentUser] uid]]){
+                        [self->_eventList addObject:[postDict objectForKey:key]];
+                        [self->_eventIDList addObject:key];
+                        break;
+                    }
+                }
             }
         }
         [self->_eventsTableView reloadData];

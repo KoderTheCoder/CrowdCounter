@@ -11,6 +11,8 @@
 
 @interface DoorDetailViewController : UIViewController
 
+- (IBAction)registerToDoor:(id)sender;
+
 @property (strong, nonatomic) IBOutlet UILabel *doorName;
 @property (strong, nonatomic) IBOutlet UILabel *attendantName;
 @property (strong, nonatomic) IBOutlet UILabel *enteredLbl;

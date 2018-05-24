@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *createEventTextField;
 - (IBAction)createEventButton:(id)sender;
 @property(strong, nonatomic) FIRAuthStateDidChangeListenerHandle handle;
+@property FIRDatabaseHandle refHandle;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property int eventCode;
 @property (strong, nonatomic) NSString *eventID;

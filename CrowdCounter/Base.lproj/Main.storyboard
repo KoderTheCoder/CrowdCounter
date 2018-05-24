@@ -323,6 +323,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFV-GI-Pk7">
                                 <rect key="frame" x="172" y="394" width="30" height="30"/>
                                 <state key="normal" title="Join"/>
+                                <connections>
+                                    <action selector="joinButton:" destination="wWA-bf-Ot6" eventType="touchUpInside" id="rZb-C0-kaW"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -336,6 +339,7 @@
                         <viewLayoutGuide key="safeArea" id="Sqi-pA-3h1"/>
                     </view>
                     <connections>
+                        <outlet property="eventCodetxtField" destination="eoJ-hi-Rlx" id="G2j-yc-zS5"/>
                         <segue destination="AOP-iH-RM8" kind="show" identifier="JoinEventAccepted" id="LlE-4a-H7U"/>
                     </connections>
                 </viewController>
@@ -462,8 +466,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zew-Kf-9S9">
-                                <rect key="frame" x="17" y="231" width="341" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="17" y="234" width="341" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -474,39 +478,52 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Entered:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFc-OV-AYt">
-                                <rect key="frame" x="17" y="124" width="342" height="21"/>
+                                <rect key="frame" x="17" y="127" width="342" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stats" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cg-si-mDn">
-                                <rect key="frame" x="17" y="87" width="341" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="17" y="87" width="341" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crowd Density:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pif-Jj-Icv">
-                                <rect key="frame" x="17" y="153" width="342" height="21"/>
+                                <rect key="frame" x="17" y="156" width="342" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zya-SR-KGi">
-                                <rect key="frame" x="17" y="274" width="342" height="252"/>
+                                <rect key="frame" x="17" y="280" width="342" height="246"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9pv-D0-X0w">
-                                        <rect key="frame" x="8" y="8" width="326" height="236"/>
+                                        <rect key="frame" x="8" y="8" width="326" height="230"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoorsList" id="hkl-1k-Dp2">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoorCell" textLabel="xDJ-ag-qNw" style="IBUITableViewCellStyleDefault" id="hkl-1k-Dp2">
                                                 <rect key="frame" x="0.0" y="28" width="326" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hkl-1k-Dp2" id="aE5-iI-hXX">
                                                     <rect key="frame" x="0.0" y="0.0" width="326" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xDJ-ag-qNw">
+                                                            <rect key="frame" x="15" y="0.0" width="296" height="43.5"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="AOP-iH-RM8" id="onA-FP-iz2"/>
+                                            <outlet property="delegate" destination="AOP-iH-RM8" id="L7f-hZ-OQc"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <constraints>
@@ -519,7 +536,7 @@
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fk4-xh-IR8">
-                                <rect key="frame" x="17" y="182" width="342" height="21"/>
+                                <rect key="frame" x="17" y="185" width="342" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -552,6 +569,8 @@
                         <viewLayoutGuide key="safeArea" id="lMd-Ir-Aou"/>
                     </view>
                     <connections>
+                        <outlet property="MyDoorsTableView" destination="9pv-D0-X0w" id="if9-hd-qUs"/>
+                        <outlet property="addDoorButton" destination="S1g-LD-4rG" id="IgE-1K-Bkf"/>
                         <outlet property="crowdDensityLbl" destination="Pif-Jj-Icv" id="oxo-xR-A4l"/>
                         <outlet property="eventCodeLbl" destination="fk4-xh-IR8" id="Dlb-BA-mWJ"/>
                         <outlet property="totalEnteredLbl" destination="FFc-OV-AYt" id="u5O-cX-rVO"/>
@@ -785,6 +804,13 @@
                                 <rect key="frame" x="16" y="392" width="343" height="67"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AO0-Jb-nBM">
+                                <rect key="frame" x="131" y="318" width="112" height="30"/>
+                                <state key="normal" title="Register to Door"/>
+                                <connections>
+                                    <action selector="registerToDoor:" destination="az7-Og-fMI" eventType="touchUpInside" id="Has-kM-Fcy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -806,13 +832,17 @@
                             <constraint firstItem="I7f-sS-IRO" firstAttribute="top" secondItem="Tf6-mT-dfN" secondAttribute="bottom" constant="8" id="ay6-Zb-aiz"/>
                             <constraint firstItem="Tf6-mT-dfN" firstAttribute="top" secondItem="alf-MF-F1q" secondAttribute="bottom" constant="8" id="bUz-EY-2eP"/>
                             <constraint firstItem="PUd-Rh-3sl" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="16" id="coy-Qn-hQH"/>
+                            <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="AO0-Jb-nBM" secondAttribute="trailing" constant="132" id="eOg-Zp-bkt"/>
                             <constraint firstItem="PUd-Rh-3sl" firstAttribute="top" secondItem="9aA-bE-WfH" secondAttribute="bottom" constant="8" id="hVw-yc-0VW"/>
                             <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="I7f-sS-IRO" secondAttribute="trailing" constant="16" id="iZl-jx-tnb"/>
                             <constraint firstItem="Tf6-mT-dfN" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="16" id="ifj-ll-hc3"/>
                             <constraint firstItem="9aA-bE-WfH" firstAttribute="top" secondItem="5kY-kv-U6i" secondAttribute="bottom" constant="8" id="it6-nF-X5w"/>
                             <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="TSc-ii-o47" secondAttribute="trailing" constant="16" id="jAz-vl-jzs"/>
                             <constraint firstItem="TSc-ii-o47" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="16" id="lBL-ey-TWt"/>
+                            <constraint firstItem="AO0-Jb-nBM" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="131" id="ni0-EF-NNW"/>
+                            <constraint firstItem="AO0-Jb-nBM" firstAttribute="top" secondItem="PUd-Rh-3sl" secondAttribute="bottom" constant="20" id="nkO-vg-KVB"/>
                             <constraint firstItem="alf-MF-F1q" firstAttribute="top" secondItem="E4P-g6-4Ec" secondAttribute="top" constant="39" id="qYH-aH-Pb1"/>
+                            <constraint firstItem="smc-pz-SQr" firstAttribute="top" secondItem="AO0-Jb-nBM" secondAttribute="bottom" constant="15" id="rWZ-nQ-ELa"/>
                             <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="3kZ-dW-rNh" secondAttribute="trailing" constant="16" id="s1Z-Ku-SW3"/>
                             <constraint firstItem="smc-pz-SQr" firstAttribute="leading" secondItem="E4P-g6-4Ec" secondAttribute="leading" constant="16" id="uEg-4j-KE4"/>
                             <constraint firstItem="E4P-g6-4Ec" firstAttribute="trailing" secondItem="5kY-kv-U6i" secondAttribute="trailing" constant="16" id="z1K-U3-9MY"/>
@@ -837,7 +867,7 @@
         <image name="logo.png" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="InU-kz-dt3"/>
-        <segue reference="Mmt-9u-FLZ"/>
+        <segue reference="Nub-kt-EbZ"/>
+        <segue reference="LlE-4a-H7U"/>
     </inferredMetricsTieBreakers>
 </document>
