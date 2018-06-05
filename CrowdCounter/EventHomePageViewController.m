@@ -72,7 +72,7 @@
             for(id key in postDict){
                 [self->_doorsList addObject:[postDict objectForKey:key]];
                 [self->_doorsIDList addObject:key];
-                totalEntered = totalEntered + [[[postDict objectForKey:key]objectForKey:@"entered"] intValue];
+                totalEntered = [[[postDict objectForKey:key]objectForKey:@"entered"] intValue];
             }
             self->totalEnteredLbl.text = [@"Total Entered: " stringByAppendingString:[NSString stringWithFormat:@"%d", totalEntered]];
             
@@ -101,5 +101,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 @end

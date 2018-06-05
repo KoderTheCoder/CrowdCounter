@@ -7,6 +7,7 @@
 //
 
 #import "DoorDetailViewController.h"
+#import "DoorViewController.h"
 
 @interface DoorDetailViewController ()
 
@@ -88,6 +89,13 @@
             }
         }
     }];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    DoorViewController *destinationVC = segue.destinationViewController;
+    
+    destinationVC.eventID = _eventID;
+    destinationVC.doorID = _doorID;
 }
 
 - (IBAction)registerToDoor:(id)sender {

@@ -7,6 +7,9 @@
 //
 
 #import "HomePageViewController.h"
+#import "ViewController.h"
+#import "AppDelegate.h"
+@import Firebase;
 
 @interface HomePageViewController ()
 
@@ -34,4 +37,15 @@
 }
 */
 
+- (IBAction)logout:(id)sender {
+    NSError *signOutError;
+    BOOL status = [[FIRAuth auth] signOut:&signOutError];
+    if (!status) {
+        NSLog(@"Error signing out: %@", signOutError);
+        return;
+    }
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self performSegueWithIdentifier:@"Logout" sender:sender];
+}
 @end

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface HomePageViewController : UIViewController
+- (IBAction)logout:(id)sender;
 
 @end
