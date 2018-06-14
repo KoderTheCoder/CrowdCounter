@@ -45,6 +45,7 @@
                          completion:^(FIRAuthDataResult * _Nullable authResult,
                                       NSError * _Nullable error) {
                              if(error){
+                                 
                                  self->_errorTxtBox.text = @"Username or password incorrect";
                              }else{
                                  [self performSegueWithIdentifier:@"LoggedIn" sender:self];

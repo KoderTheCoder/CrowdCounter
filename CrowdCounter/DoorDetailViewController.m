@@ -27,10 +27,10 @@
     //handler to listen for changes in the database
     _refHandle = [[[[[_ref child:@"events"] child:_eventID]child:@"doors"] child:_doorID] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *postDict = snapshot.value;
-        self->doorName.text = [@"Door: " stringByAppendingString:[postDict objectForKey:@"doorName"]];
+        self->doorName.text = [@"Door:\t\t\t\t " stringByAppendingString:[postDict objectForKey:@"doorName"]];
         self->attendantID = [postDict objectForKey:@"attendantID"];
         if([[postDict objectForKey:@"attendantID"]  isEqual: @""]){
-            self->attendantName.text = @"Attendant: NA";
+            self->attendantName.text = @"Attendant:\t\t\t NA";
         }else{
             if([[[[FIRAuth auth]currentUser]uid] isEqualToString:[postDict objectForKey:@"attendantID"]]){
                 [self->registerToDoorButton setTitle:@"Door Counter Page" forState:UIControlStateNormal];
@@ -38,19 +38,21 @@
                 [self->registerToDoorButton setEnabled:NO];
             }
             
-            self->attendantName.text = [@"Attendant: " stringByAppendingString:[postDict objectForKey:@"attendantName"]];
+            self->attendantName.text = [@"Attendant:\t\t\t " stringByAppendingString:[postDict objectForKey:@"attendantName"]];
         }
         if([postDict objectForKey:@"entered"] != nil){
-            self->enteredLbl.text = [@"Entered: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"entered"]]];
+            self->enteredLbl.text = [@"Entered:\t\t\t " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"entered"]]];
         }
         if([postDict objectForKey:@"exited"] != nil){
-            self->exitedLbl.text = [@"Exited: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"exited"]]];
+            self->exitedLbl.text = [@"Exited:\t\t\t\t " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"exited"]]];
         }
-        if([postDict objectForKey:@"pplPerMin"] != nil){
-            self->pplPerMin.text = [@"Peopl/Min: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"pplPerMin"]]];
+        if([postDict objectForKey:@"pplPerMin"] != 0){
+            self->pplPerMin.text = [@"Peopl/Min:\t\t " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"pplPerMin"]]];
+        }else{
+            self->pplPerMin.text = @"0";
         }
         if([postDict objectForKey:@"crowdDensity"] != nil){
-            self->crowdDensity.text = [@"Crowd Density: " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"crowdDensity"]]];
+            self->crowdDensity.text = [[@"Crowd Density:\t " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"crowdDensity"]]] stringByAppendingString:@" ppl/m²"];
         }
     }];
     
