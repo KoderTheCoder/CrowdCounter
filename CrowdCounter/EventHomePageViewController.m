@@ -65,7 +65,7 @@
     __block int totalEntered = 0;
     _refHandle = [[[[_ref child:@"events"]child:_eventID]child:@"doors"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *postDict = snapshot.value;
-        if(postDict != nil){
+        if(postDict != [NSNull null]){
             [self->_doorsList removeAllObjects];
             [self->_doorsIDList removeAllObjects];
             

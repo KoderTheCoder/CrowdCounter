@@ -37,9 +37,12 @@
 */
 
 - (IBAction)createDoor:(id)sender {
+    NSNumber* timeStampObj = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]]; //get the time the door created
+    
+    
     _doorID = [_ref childByAutoId].key;
     [[[[[self->_ref child:@"events"] child: _eventID] child:@"doors"]child: _doorID]
-     setValue:@{@"doorName": doorName.text, @"area":[NSNumber numberWithInt:[doorArea.text intValue]], @"attendantID":@"", @"attendantName":@"", @"entered":@0, @"exited":@0, @"pplPerMin":@0, @"crowdDensity":@0 }];
+     setValue:@{@"doorName": doorName.text, @"area":[NSNumber numberWithInt:[doorArea.text intValue]], @"attendantID":@"", @"attendantName":@"", @"entered":@0, @"exited":@0, @"pplPerMin":@0, @"crowdDensity":@0, @"timeCreated":timeStampObj }];
     doorName.text = @"";
     doorArea.text = @"";
     [self performSegueWithIdentifier:@"ShowDoor" sender:self];

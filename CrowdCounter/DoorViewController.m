@@ -37,15 +37,19 @@
      */
     [[[[[_ref child:@"events"] child:_eventID]child:@"doors"] child:_doorID] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *postDict = snapshot.value;
+        //NSNumber* timeStampObj = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+        
         NSNumber* entered = [postDict objectForKey:@"entered"];
         NSNumber* exited = [postDict objectForKey:@"exited"];
         NSNumber* crowdDensity = [NSNumber numberWithInt:([entered intValue] - [exited intValue])/[[postDict objectForKey:@"area"] intValue]];
+        NSNumber* pplPerMin = @1;//[NSNumber numberWithDouble:[entered doubleValue]/([timeStampObj doubleValue] - [[postDict objectForKey:@"timeCreated"] doubleValue])];
+        self.title = [postDict objectForKey:@"doorName"];
         
         self->enteredLbl.text = [NSString stringWithFormat:@"%@",[postDict objectForKey:@"entered"]];
         self->exitedLbl.text = [NSString stringWithFormat:@"%@",[postDict objectForKey:@"exited"]];
         if(!([@"" isEqualToString:[postDict objectForKey:@"area"]])){
             [[[[[self->_ref child:@"events"] child:self->_eventID]child:@"doors"]child:self->_doorID]
-             updateChildValues:@{@"crowdDensity": crowdDensity}];
+             updateChildValues:@{@"crowdDensity": crowdDensity, @"pplPerMin": pplPerMin}];
         }
     }];
     

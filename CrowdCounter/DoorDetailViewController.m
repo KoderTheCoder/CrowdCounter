@@ -47,7 +47,7 @@
             self->exitedLbl.text = [@"Exited:\t\t\t\t " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"exited"]]];
         }
         if([postDict objectForKey:@"pplPerMin"] != 0){
-            self->pplPerMin.text = [@"Peopl/Min:\t\t " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"pplPerMin"]]];
+            self->pplPerMin.text = [@"Peopl/Min:\t\t\t " stringByAppendingString:[NSString stringWithFormat:@"%@",[postDict objectForKey:@"pplPerMin"]]];
         }else{
             self->pplPerMin.text = @"0";
         }
